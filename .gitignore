@@ -87,3 +87,8 @@ ENV/
 
 # Rope project settings
 .ropeproject
+bin
+include
+lib
+*.pyc
+__pycache__
