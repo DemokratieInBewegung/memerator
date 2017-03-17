@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Memerator || Demokratie in Bewegung, Bundestags Wahl 2017 Meme Generator</title>
+  <link rel="stylesheet" type="text/css" href="/static/basics.css">
+  <link rel="stylesheet" type="text/css" href="/static/memerator.css">
+</head>
+<body>
+
+{% if model %}
+<img src="{{model.image.url}}" />
+{% endif %}
+
+<canvas>
+  
+</canvas>
+
+
+<form enctype="multipart/form-data" action='/' method="POST">
+  {% csrf_token %}
+  {{form.as_table}}
+
+  <button type="submit">Share</button>
+</form>
+
+</body>
+</html>
