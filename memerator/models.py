@@ -9,7 +9,7 @@ class Meme(models.Model):
         
     id = models.CharField(max_length=10, primary_key=True) 
     template = models.CharField(max_length=30)
-    text = models.CharField(max_length=30)
+    text = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now=True)
     image = models.ImageField()
 

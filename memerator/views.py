@@ -13,13 +13,13 @@ def show(request, code=None):
     if code:
         print(code)
         model = get_object_or_404(Meme, pk=code)
-        return render(request, 'index.html', context=dict(model=model))
+        return render(request, 'show.html', context=dict(model=model))
 
     if request.method == 'POST':
         form = MemeForm(request.POST, request.FILES)
         model = form.save()
         return redirect('/{}#showShare'.format(model.id))
 
-    return render(request, 'index.html', context=dict(form=MemeForm()))
+    return render(request, 'index.html', context=dict(form=MemeForm(), args=request.GET))
 
 

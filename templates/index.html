@@ -5,12 +5,9 @@
   <title>Memerator || Demokratie in Bewegung, Bundestags Wahl 2017 Meme Generator</title>
   <link rel="stylesheet" type="text/css" href="/static/basics.css">
   <link rel="stylesheet" type="text/css" href="/static/memerator.css">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700|Rubik:400,400i,500,500i,700" rel="stylesheet"> 
 </head>
 <body>
-
-{% if model %}
-<img src="{{model.image.url}}" />
-{% endif %}
 
 <canvas id="canvas" width="980" height="640">
   
@@ -18,9 +15,12 @@
 
 <h2>Vorlage</h2>
 
-<img src="/static/images/schulz_gabriel_01.jpg" onclick="javascript:loadImage(this)" width="150"/>
-<img src="/static/images/schulz_gabriel_02.jpg" onclick="javascript:loadImage(this)" width="150"/>
-<img src="/static/images/schulz_gabriel_03.jpg" onclick="javascript:loadImage(this)" width="150"/>
+<img id="schulz_gabriel_01" src="/static/images/schulz_gabriel_01.jpg" onclick="javascript:refresh(this.id)" width="150"/>
+<img id="schulz_gabriel_02" src="/static/images/schulz_gabriel_02.jpg" onclick="javascript:refresh(this.id)" width="150"/>
+<img id="schulz_gabriel_03" src="/static/images/schulz_gabriel_03.jpg" onclick="javascript:refresh(this.id)" width="150"/>
+
+<br>
+<input type="text" value="Damit die Basis auch mal was zu tun hat" onchange="javascript:refresh()"  id="text"  placeholder="Hier den Text eingeben" />
 
 <button id="submitBtn" onclick="javascript:submit()">Share</button>
 
@@ -34,18 +34,35 @@
 </div>
 
 <script type="text/javascript">
-  var canvas = document.getElementById('canvas');
-  var ctx = canvas.getContext('2d');
 
-  ctx.fillStyle = 'green';
-  ctx.fillRect(10, 10, 100, 100);
+  const configurations = {
+    'schulz_gabriel_01': {maxLength: 30, font: '14px Rubik', color: 'white', pos: {x: 10, y: 300}},
+    'schulz_gabriel_02': {maxLength: 30, font: '16px Rubik', color: 'white', pos: {x: 100, y: 100}},
+    'schulz_gabriel_03': {maxLength: 30, font: '20px Rubik', color: 'white', pos: {x: 30, y: 150}}
+  };
 
-  function loadImage(item) {
+  var currentConf = '{{args.tmpl|default:"schulz_gabriel_01"}}';
+
+  function refresh(newConf) {
+    if (newConf) {
+      currentConf = newConf;
+    } 
+    const conf = configurations[currentConf];
+
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
+    const item = document.getElementById(currentConf);
+    const text = document.getElementById('text');
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = conf.font;
+    ctx.fillStyle = conf.color;
+    text.setAttribute('maxLength', conf.maxLength);
 
     // Draw slice
     ctx.drawImage(item, 0, 0, canvas.width, canvas.height);
+    // refresh text
+    ctx.fillText(text.value, conf.pos.x, conf.pos.y)
   }
 
   function submit() {
@@ -55,24 +72,27 @@
     const canvas = document.querySelector('canvas');
     var quality = 0.95;
     canvas.toBlob(function(blob){
-        fd.set('template', 'template');
-        fd.set('text', 'text');
+        fd.set('template', currentConf);
+        fd.set('text', document.getElementById('text').value);
         fd.set("image", blob, "test.jpg");
 
         var request = new XMLHttpRequest();
 
         request.onload = function(resp) {
-          // console.log(this);
           document.location.href = this.responseURL
         }
-
 
         request.open("POST", "/");
         request.send(fd);
 
     }, "image/jpeg", quality);
   }
+
+  refresh();
 </script>
 
+<footer>
+  Bilder original unter Creative Commons veröffentlicht durch <a href="https://www.flickr.com/photos/sozialdemokratie/">SPÖ</a>.
+</footer>
 </body>
 </html>
