@@ -18,6 +18,7 @@
 <img id="schulz_gabriel_01" src="/static/images/schulz_gabriel_01.jpg" onclick="javascript:refresh(this.id)" width="150"/>
 <img id="schulz_gabriel_02" src="/static/images/schulz_gabriel_02.jpg" onclick="javascript:refresh(this.id)" width="150"/>
 <img id="schulz_gabriel_03" src="/static/images/schulz_gabriel_03.jpg" onclick="javascript:refresh(this.id)" width="150"/>
+<img id="alternativlos" src="/static/images/alternativlos.png" onclick="javascript:refresh(this.id)" width="150"/>
 
 <br>
 <input type="text" value="Damit die Basis auch mal was zu tun hat" onchange="javascript:refresh()"  id="text"  placeholder="Hier den Text eingeben" />
@@ -36,9 +37,10 @@
 <script type="text/javascript">
 
   const configurations = {
-    'schulz_gabriel_01': {maxLength: 30, font: '14px Rubik', color: 'white', pos: {x: 10, y: 300}},
-    'schulz_gabriel_02': {maxLength: 30, font: '16px Rubik', color: 'white', pos: {x: 100, y: 100}},
-    'schulz_gabriel_03': {maxLength: 30, font: '20px Rubik', color: 'white', pos: {x: 30, y: 150}}
+    'alternativlos': {maxLength: 30, font: '32px Rubik', fillStyle: 'white', textAlign: 'center', pos: {x: 455, y: 250, w: 900}},
+    'schulz_gabriel_01': {maxLength: 30, font: '14px Rubik', fillStyle: 'white', textAlign: 'left', pos: {x: 10, y: 300, w: 900}},
+    'schulz_gabriel_02': {maxLength: 30, font: '16px Rubik', fillStyle: 'white', textAlign: 'left', pos: {x: 100, y: 100, w: 900}},
+    'schulz_gabriel_03': {maxLength: 30, font: '20px Rubik', fillStyle: 'white', textAlign: 'left', pos: {x: 30, y: 150, w: 900}}
   };
 
   var currentConf = '{{args.tmpl|default:"schulz_gabriel_01"}}';
@@ -56,13 +58,14 @@
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.font = conf.font;
-    ctx.fillStyle = conf.color;
+    ctx.fillStyle = conf.fillStyle;
+    ctx.textAlign = conf.textAlign;
     text.setAttribute('maxLength', conf.maxLength);
 
     // Draw slice
     ctx.drawImage(item, 0, 0, canvas.width, canvas.height);
     // refresh text
-    ctx.fillText(text.value, conf.pos.x, conf.pos.y)
+    ctx.fillText(text.value, conf.pos.x, conf.pos.y, conf.pos.w)
   }
 
   function submit() {
