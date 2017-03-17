@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY', 'uvfje(+2g+3llny0id-i%7&v()yumlss$^(r!rsfuu*+jsn$j6')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not os.environ.get('DOKKU_APP_TYPE', False)
+DEBUG = os.environ.get('DEBUG', not os.environ.get('DOKKU_APP_TYPE', False))
 
 ALLOWED_HOSTS = os.environ.get('DOMAINS', 'localhost').split(',')
 
