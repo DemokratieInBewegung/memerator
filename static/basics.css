@@ -18,6 +18,7 @@ a:visited {
 a.btn,
 a.btn:visited,
 button,
+input[type=text],
 input[type=submit] {
 	color: white;
 	font-weight: 400;
@@ -27,17 +28,24 @@ input[type=submit] {
 	border-radius: 5px;
 	padding: 12px 25px;
 	display: inline-block;
-	text-align: center;
-	cursor: pointer;
 	text-decoration: none;
 
+	-webkit-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+
+a.btn,
+a.btn:visited,
+button,
+input[type=submit] {
+	text-align: center;
+	cursor: pointer;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	-webkit-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
 }
 
 a.btn:hover,
@@ -51,6 +59,7 @@ input[type=submit]:hover {
 a.btn.outline,
 a.btn.outline:visited,
 button.outline,
+input[type=text].outline,
 input[type=submit].outline {
 	background-color: white;
 	color: #274F9E;
@@ -67,12 +76,14 @@ input[type=submit].outline:hover {
 
 a.btn.red,
 button.red,
+input[type=text].red,
 input[type=submit].red {
 	background-color: #eb5c4a;
 }
 
 a.btn.red.outline,
 button.red.outline,
+input[type=text].red.outline,
 input[type=submit].red.outline {
 	background-color: white;
 	color: #eb5c4a;
@@ -81,6 +92,7 @@ input[type=submit].red.outline {
 
 a.btn.red.outline:hover,
 button.red.outline:hover,
+input[type=text].red.outline:hover,
 input[type=submit].red.outline:hover {
 	background-color: #eb5c4a;
 	color: white;
@@ -90,12 +102,14 @@ input[type=submit].red.outline:hover {
 
 a.btn.purple,
 button.purple
+input[type=text].purple:hover,
 input[type=submit].purple:hover {
 	background-color: #62388E;
 }
 
 a.btn.purple.outline,
 button.purple.outline
+input[type=text].purple.outline,
 input[type=submit].purple.outline {
 	background-color: white;
 	color: #62388E;
@@ -104,6 +118,7 @@ input[type=submit].purple.outline {
 
 a.btn.purple.outline:hover,
 button.purple.outline:hover,
+input[type=text].purple.outline:hover,
 input[type=submit].purple.outline:hover {
 	background-color: #62388E;
 	color: white;

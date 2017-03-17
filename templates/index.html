@@ -9,21 +9,29 @@
 </head>
 <body>
 
-<canvas id="canvas" width="980" height="640">
-  
-</canvas>
+{% include "_header.html" %}
 
-<h2>Vorlage</h2>
 
-<img id="schulz_gabriel_01" src="/static/images/schulz_gabriel_01.png" onclick="javascript:refresh(this.id)" width="150"/>
-<img id="schulz_gabriel_02" src="/static/images/schulz_gabriel_02.png" onclick="javascript:refresh(this.id)" width="150"/>
-<img id="schulz_gabriel_03" src="/static/images/schulz_gabriel_03.png" onclick="javascript:refresh(this.id)" width="150"/>
-<img id="alternativlos" src="/static/images/alternativlos.png" onclick="javascript:refresh(this.id)" width="150"/>
 
-<br>
-<input type="text" value="{{args.text|default:'Damit die Basis auch mal was zu tun hat'}}" onchange="javascript:refresh()"  id="text"  placeholder="Hier den Text eingeben" />
+<div class="container">
+<div class="editor">
+  <canvas id="canvas" width="980" height="640"> </canvas>
 
-<button id="submitBtn" onclick="javascript:submit()">Share</button>
+  <div class="options">
+    <h2>Wähle:</h2>
+    <img id="schulz_gabriel_01" src="/static/images/schulz_gabriel_01.png" onclick="javascript:refresh(this.id)" width="150"/>
+    <img id="schulz_gabriel_02" src="/static/images/schulz_gabriel_02.png" onclick="javascript:refresh(this.id)" width="150"/>
+    <img id="schulz_gabriel_03" src="/static/images/schulz_gabriel_03.png" onclick="javascript:refresh(this.id)" width="150"/>
+    <img id="alternativlos" src="/static/images/alternativlos.png" onclick="javascript:refresh(this.id)" width="150"/>
+  </div>
+
+</div>
+<div class="container texter">
+  <span>Dein Text:</span>
+  <input type="text" value="{{args.text|default:'Damit die Basis auch mal was zu tun hat'}}" onkeyup="javascript:refresh()" onchange="javascript:refresh()"  id="text"  placeholder="Hier den Text eingeben" class="outline" />
+  <button class="outline" onclick="javascript:submit()">Share</button>
+</div>
+</div>
 
 
 
@@ -37,24 +45,30 @@
 <script type="text/javascript">
 
   const configurations = {
-    'alternativlos': {maxLength: 30, font: '32px Rubik', fillStyle: 'white', textAlign: 'center', pos: {x: 455, y: 250, w: 900}},
-    'schulz_gabriel_01': {maxLength: 30, font: '40px Rubik', fillStyle: 'white', textAlign: 'left', pos: {x: 430, y: 425, w: 530}},
-    'schulz_gabriel_02': {maxLength: 30, font: '40px Rubik', fillStyle: 'white', textAlign: 'left', pos: {x: 205, y: 390, w: 400}},
-    'schulz_gabriel_03': {maxLength: 30, font: '40px Rubik', fillStyle: 'white', textAlign: 'left', pos: {x: 15, y: 315, w: 520}}
+    'alternativlos': {maxLength: 50, font: '32px Rubik', fillStyle: 'white', textAlign: 'center', pos: {x: 455, y: 250, w: 900}},
+    'schulz_gabriel_01': {maxLength: 50, font: '40px Rubik', fillStyle: 'white', textAlign: 'left', pos: {x: 430, y: 425, w: 530}},
+    'schulz_gabriel_02': {maxLength: 50, font: '40px Rubik', fillStyle: 'white', textAlign: 'left', pos: {x: 205, y: 390, w: 400}},
+    'schulz_gabriel_03': {maxLength: 50, font: '40px Rubik', fillStyle: 'white', textAlign: 'left', pos: {x: 15, y: 315, w: 500}}
   };
 
   var currentConf = '{{args.tmpl|default:"schulz_gabriel_01"}}';
 
   function refresh(newConf) {
-    if (newConf) {
+    if (newConf && currentConf !== newConf) {
       currentConf = newConf;
-    } 
+      Array.prototype.forEach.call(document.getElementsByClassName('selected'), function(item) {
+        item.classList.remove('selected')
+      })
+    }
+
     const conf = configurations[currentConf];
 
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
     const item = document.getElementById(currentConf);
     const text = document.getElementById('text');
+
+    item.classList.add('selected');
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.font = conf.font;
@@ -94,8 +108,6 @@
   refresh();
 </script>
 
-<footer>
-  Bilder original unter Creative Commons veröffentlicht durch <a href="https://www.flickr.com/photos/sozialdemokratie/">SPÖ</a>.
-</footer>
+{% include "_footer.html" %}
 </body>
 </html>
