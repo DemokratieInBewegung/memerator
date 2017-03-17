@@ -2,10 +2,17 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Memerator || Demokratie in Bewegung, Bundestags Wahl 2017 Meme Generator</title>
+  <title>{{model.text}} -- Memerator || Demokratie in Bewegung, Bundestags Wahl 2017 Meme Generator</title>
   <link rel="stylesheet" type="text/css" href="/static/basics.css">
   <link rel="stylesheet" type="text/css" href="/static/memerator.css">
   <link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700|Rubik:400,400i,500,500i,700" rel="stylesheet"> 
+  <meta property="og:image" content="{{model.image.url}}"/>
+  <meta property="og:site_name" content="Demokratie in Bewegung || Memerator"/>
+  <meta property="og:type" content="image"/>
+  <meta name="twitter:card" content="photo">
+  <meta name="twitter:title" content="{{model.text}} -- Memerator || Demokratie in Bewegung">
+  <meta name="twitter:image" content="{{model.image.url}}">
+  <meta name="twitter:site" content="@brauchtBewegung">
 </head>
 <body>
 
