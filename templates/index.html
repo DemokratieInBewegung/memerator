@@ -12,17 +12,67 @@
 <img src="{{model.image.url}}" />
 {% endif %}
 
-<canvas>
+<canvas id="canvas" width="980" height="640">
   
 </canvas>
 
+<h2>Vorlage</h2>
 
-<form enctype="multipart/form-data" action='/' method="POST">
-  {% csrf_token %}
-  {{form.as_table}}
+<img src="/static/images/schulz_gabriel_01.jpg" onclick="javascript:loadImage(this)" width="150"/>
+<img src="/static/images/schulz_gabriel_02.jpg" onclick="javascript:loadImage(this)" width="150"/>
+<img src="/static/images/schulz_gabriel_03.jpg" onclick="javascript:loadImage(this)" width="150"/>
 
-  <button type="submit">Share</button>
-</form>
+<button id="submitBtn" onclick="javascript:submit()">Share</button>
+
+
+
+<div style="display: none">
+  <form id="sender" enctype="multipart/form-data" action='/' method="POST">
+    {% csrf_token %}
+    {{form.as_table}}
+  </form>
+</div>
+
+<script type="text/javascript">
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = 'green';
+  ctx.fillRect(10, 10, 100, 100);
+
+  function loadImage(item) {
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Draw slice
+    ctx.drawImage(item, 0, 0, canvas.width, canvas.height);
+  }
+
+  function submit() {
+    const btn = document.getElementById('submitBtn');
+    // TODO: disable button
+    const fd = new FormData(document.querySelector('form'));
+    const canvas = document.querySelector('canvas');
+    var quality = 0.95;
+    canvas.toBlob(function(blob){
+        fd.set('template', 'template');
+        fd.set('text', 'text');
+        fd.set("image", blob, "test.jpg");
+
+        var request = new XMLHttpRequest();
+
+        request.onload = function(resp) {
+          // console.log(this);
+          document.location.href = this.responseURL
+        }
+
+
+        request.open("POST", "/");
+        request.send(fd);
+
+    }, "image/jpeg", quality);
+  }
+</script>
 
 </body>
 </html>
