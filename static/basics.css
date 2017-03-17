@@ -22,7 +22,6 @@ input[type=text],
 input[type=submit] {
 	color: white;
 	font-weight: 400;
-	text-transform: uppercase;
 	background: #274F9E;
 	border: 1px solid transparent;
 	border-radius: 5px;
@@ -40,6 +39,7 @@ a.btn,
 a.btn:visited,
 button,
 input[type=submit] {
+	text-transform: uppercase;
 	text-align: center;
 	cursor: pointer;
 	-webkit-user-select: none;
